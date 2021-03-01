@@ -4,8 +4,11 @@ import (
 	"io"
 	"log"
 	"net"
+	"strconv"
 	"time"
 )
+
+var i = 0
 
 func main() {
 	// TODO: write server program to handle concurrent client connections.
@@ -30,10 +33,11 @@ func main() {
 func handleConn(c net.Conn) {
 	defer c.Close()
 	for {
-		_, err := io.WriteString(c, "response from server\n")
+		_, err := io.WriteString(c, "response from server - "+strconv.Itoa(i)+"\n")
 		if err != nil {
 			return
 		}
+		i++
 		time.Sleep(time.Second)
 	}
 }
