@@ -13,10 +13,11 @@ func main() {
 
 	for i := 1; i <= 3; i++ {
 		wg.Add(1)
-		go func() {
+		go func(i int) {
 			defer wg.Done()
-			fmt.Println(i)
-		}()
+			fmt.Println(i) //directly accessing i from parent would lead to discrepancy, as parent is continuously changing, therefore,
+			// accept i as a parameneter and it'll run with the  value it was passed
+		}(i)
 	}
 	wg.Wait()
 }
